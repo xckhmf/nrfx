@@ -40,6 +40,20 @@ elif GetDepend('SOC_NRF52832') == True:
 		
 	if rtconfig.PLATFORM == 'iar':
 		D_SRC += ['./mdk/iar_startup_nrf52.s']
+
+elif GetDepend('SOC_NRF52833') == True:
+	define += ['NRF52833_XXAA']
+	src += ['./mdk/system_nrf52.c']
+	
+	if rtconfig.PLATFORM == 'armcc':
+		src += ['./mdk/arm_startup_nrf52.s']
+		
+	if rtconfig.PLATFORM == 'gcc':
+		src += ['./mdk/gcc_startup_nrf52.S']
+		
+	if rtconfig.PLATFORM == 'iar':
+		D_SRC += ['./mdk/iar_startup_nrf52.s']
+
 else:
 	pass
 #group
