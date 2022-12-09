@@ -3,7 +3,14 @@ Import('rtconfig')
 from building import *
 
 cwd  = GetCurrentDir()
-src = Glob('./drivers/src/*.c')
+
+
+if GetDepend('SOC_NRF5340') == True:
+	src = ['./drivers/src/nrfx_uarte.c']
+	src += ['./drivers/src/nrfx_gpiote.c']
+	src += ['./drivers/src/nrfx_clock.c']
+else:
+	src = Glob('./drivers/src/*.c')
 path = []
 define = []
 
@@ -68,6 +75,20 @@ elif GetDepend('SOC_NRF51822') == True:
 		
 	if rtconfig.PLATFORM == 'iar':
 		D_SRC += ['./mdk/iar_startup_nrf51.s']
+        
+        
+elif GetDepend('SOC_NRF5340') == True:
+	define += ['NRF5340_XXAA_APPLICATION']
+	src += ['./mdk/system_nrf5340_application.c']
+	
+	if rtconfig.PLATFORM == 'armcc':
+		src += ['./mdk/arm_startup_nrf5340_application.s']
+		
+	if rtconfig.PLATFORM == 'gcc':
+		src += ['./mdk/gcc_startup_nrf5340_application.S']
+		
+	if rtconfig.PLATFORM == 'iar':
+		D_SRC += ['./mdk/iar_startup_nrf5340_application.s']
 else:
 	pass
 #group
