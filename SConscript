@@ -15,6 +15,9 @@ if GetDepend('SOC_NRF5340') == True:
 	src += ['./drivers/src/nrfx_wdt.c']
 	src += ['./drivers/src/nrfx_timer.c']
 	src += ['./drivers/src/nrfx_qspi.c']
+	src += ['./drivers/src/nrfx_spim.c']
+	src += ['./drivers/src/nrfx_twim.c']
+	src += ['./drivers/src/nrfx_twi_twim.c']
 else:
 	src = Glob('./drivers/src/*.c')
 path = []
